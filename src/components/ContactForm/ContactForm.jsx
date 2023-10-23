@@ -1,14 +1,13 @@
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { add } from 'redux/store';
+import { addContact } from 'redux/operations/operations';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const valueContacts = useSelector(store => store.contacts);
+  const valueContacts = useSelector(store => store.contacts.entrities);
 
   function handleInputChange(e) {
     const { name, value } = e.currentTarget;
@@ -32,7 +31,6 @@ export default function ContactForm() {
     const newContact = {
       name,
       number,
-      id: nanoid(),
     };
 
     for (const { name } of valueContacts) {
@@ -42,7 +40,7 @@ export default function ContactForm() {
       }
     }
 
-    dispatch(add(newContact));
+    dispatch(addContact(newContact));
   }
 
   function reset() {
