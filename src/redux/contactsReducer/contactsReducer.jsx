@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import {
   createSlice,
   isAnyOf,
@@ -21,21 +21,26 @@ const contactsReducer = createSlice({
         state.isLoading = true;
         state.entrities = payload;
       })
-      .addCase(addContact.fulfilled, {
-        reducer(state, { payload }) {
+      .addCase(
+        addContact.fulfilled,
+        (state, { payload }) => {
           state.isLoading = false;
           state.entrities.push(payload);
-        },
-        prepare({ name, number }) {
-          return {
-            payload: {
-              name,
-              number,
-              id: nanoid(),
-            },
-          };
-        },
-      })
+        }
+        // reducer(state, { payload }) {
+        //   state.isLoading = false;
+        //   state.entrities.push(payload);
+        // },
+        // prepare({ name, number }) {
+        //   return {
+        //     payload: {
+        //       name,
+        //       number,
+        //       id: nanoid(),
+        //     },
+        //   };
+        // },
+      )
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         const index = state.entrities.findIndex(contact => {
